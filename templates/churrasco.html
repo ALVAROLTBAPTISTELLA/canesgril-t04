@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ prato.nome_prato }}{% endblock %}
+
+{% block content %}
+<!-- Receipe Slider -->
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="receipe-slider owl-carousel">
+                {% if prato.foto_prato %}
+                    <img src="{{ prato.foto_prato.url }}" alt="{{ prato.nome_prato }}">
+                {% else %}
+                    <img src="{% static 'img/bg-img/tomate_banner.jpg' %}" alt="Banner Default">
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Receipe Content Area -->
+<div class="receipe-content-area mb-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-8">
+                <div class="receipe-headline my-5">
+                    <span>{{ prato.date_prato|date:"d de F, Y" }}</span>
+                    <h2>{{ prato.nome_prato }}</h2>
+                    <div class="receipe-duration">
+                        <h6>Preparo: {{ prato.tempo_preparo }} minutos</h6>
+                        <h6>Rendimento: {{ prato.rendimento }}</h6>
+                        <h6>Categoria: {{ prato.categoria }}</h6>
+                        <h6>Por: {{ prato.funcionario.username }}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Modo de Preparo -->
+            <div class="col-12 col-lg-8">
+                <div class="single-preparation-step d-flex">
+                    <!-- O linebreaksbr garante que as quebras de linha do TextField sejam respeitadas no HTML -->
+                    <p>{{ prato.modo_preparo|linebreaksbr }}</p>
+                </div>
+            </div>
+
+            <!-- Ingredientes -->
+            <div class="col-12 col-lg-4">
+                <div class="ingredients">
+                    <h4>Ingredientes</h4>
+                    <div class="ingredients-content">
+                        <p>{{ prato.ingredientes|linebreaksbr }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
